@@ -8,20 +8,17 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl unzip && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies and gdown
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt gdown
+# Download and unzip the e5 model
+RUN curl -L "https://drive.google.com/uc?export=download&id=142QD5BxEEzdDR8W374wNKOHuc5XTZmCC" -o /tmp/e5_model.zip \
+    && unzip /tmp/e5_model.zip -d /app/e5_model \
+    && rm /tmp/e5_model.zip
 
-# Check network connectivity (Optional)
-RUN curl -s https://google.com > /dev/null && echo "Network OK" || echo "Network Error"
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # PyTorch 설치 (CPU 버전)
 RUN pip install --no-cache-dir torch==1.13.1+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
-
-# Download and unzip the e5 model
-RUN gdown --id 142QD5BxEEzdDR8W374wNKOHuc5XTZmCC -O /tmp/e5_model.zip \
-    && unzip /tmp/e5_model.zip -d /app/e5_model \
-    && rm /tmp/e5_model.zip
 
 # Copy the rest of the application
 COPY . .
@@ -30,7 +27,7 @@ COPY . .
 RUN mkdir -p /app/.files /app/.chainlit && \
     chmod -R 777 /app/.files /app/.chainlit
 
-# Set environment variable to change the .files directory location
+# Set environment variable for file directory
 ENV FILES_DIRECTORY=/app/.files
 
 # Expose the port on which the app runs
