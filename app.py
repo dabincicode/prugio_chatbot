@@ -47,7 +47,7 @@ def download_and_unzip_e5_model():
         print("e5 model already exists.")
 
 # e5 모델 경로 설정
-model_path = "/app/e5_model/multilingual-e5-small"  # Dockerfile에서 해제한 경로
+model_path = "/app/e5_model/e5/multilingual-e5-small"  # Dockerfile에서 해제한 경로
 download_and_unzip_e5_model()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModel.from_pretrained(model_path)
