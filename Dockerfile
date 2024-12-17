@@ -16,6 +16,11 @@ RUN curl -s https://google.com > /dev/null && echo "Network OK" || echo "Network
 # PyTorch 설치 (CPU 버전)
 RUN pip install torch==1.13.1+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
 
+# 모델 다운로드 및 압축 해제
+RUN curl -L -o /tmp/e5_model.zip "https://drive.google.com/uc?id=142QD5BxEEzdDR8W374wNKOHuc5XTZmCC" \
+    && unzip /tmp/e5_model.zip -d /app/e5_model \
+    && rm /tmp/e5_model.zip
+
 # Copy the rest of the application
 COPY . .
 
