@@ -10,6 +10,9 @@ COPY requirements.txt .
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# PyTorch 설치 (CUDA 11.7 버전 예시)
+RUN pip install torch==1.13.1+cu117 -f https://download.pytorch.org/whl/cu117/torch_stable.html
+
 # Copy the rest of the application
 COPY . .
 
