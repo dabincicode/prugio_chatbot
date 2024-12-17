@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Download and unzip the e5 model
 RUN curl -L "https://drive.google.com/uc?export=download&id=142QD5BxEEzdDR8W374wNKOHuc5XTZmCC" -o /tmp/e5_model.zip \
-    && unzip /tmp/e5_model.zip -d /app/e5_model \
-    && rm /tmp/e5_model.zip
+    && unzip /tmp/e5_model.zip "e5/*" -d /tmp/ \
+    && mv /tmp/e5/multilingual-e5-small /app/e5_model/ \
+    && rm -rf /tmp/e5 /tmp/e5_model.zip
 
 # Install Python dependencies
 COPY requirements.txt .
