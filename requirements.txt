@@ -64,4 +64,3 @@ wsproto==1.2.0
 zipp==3.19.2
 torch>=1.13,<2.2
 transformers>=4.28,<5.0
-sqlite3-binary
