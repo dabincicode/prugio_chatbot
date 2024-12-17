@@ -8,6 +8,10 @@ from transformers import AutoTokenizer, AutoModel
 from openai import AsyncOpenAI
 import chainlit as cl
 
+# Hugging Face 캐시 경로 설정
+os.environ["TRANSFORMERS_CACHE"] = "/app/.cache/huggingface"
+
+
 # OpenAI GPT 설정
 client = AsyncOpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
