@@ -16,8 +16,8 @@ RUN gdown --id 1PVOTD5_SgGxF-08cIS5sV_atxJoFWrRa -O /tmp/e5.zip \
     && unzip /tmp/e5.zip -d /app/ \
     && rm /tmp/e5.zip
 
-# Set Hugging Face cache directory
-ENV TRANSFORMERS_CACHE=/app/.cache/huggingface
+# Set Hugging Face home directory
+ENV HF_HOME=/app/.cache/huggingface
 RUN mkdir -p /app/.cache/huggingface && chmod -R 777 /app/.cache/huggingface
 
 # Install Python dependencies
