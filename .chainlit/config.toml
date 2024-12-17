@@ -2,6 +2,8 @@
 # Whether to enable telemetry (default: true). No personal data is collected.
 enable_telemetry = true
 
+[server]
+config_dir = "./.chainlit"  # 상대 경로를 사용
 
 # List of environment variables to be provided by each user to use the app.
 user_env = []
