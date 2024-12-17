@@ -25,30 +25,9 @@ import requests
 import zipfile
 from transformers import AutoTokenizer, AutoModel
 
-# e5 모델 다운로드 및 압축 해제
-def download_and_unzip_e5_model():
-    url = "https://drive.google.com/uc?id=142QD5BxEEzdDR8W374wNKOHuc5XTZmCC"
-    zip_path = "/tmp/e5_model.zip"
-    model_dir = "/app/e5_model/multilingual-e5-small"  # Dockerfile 경로에 맞춤
-
-    if not os.path.exists(model_dir):
-        print("Downloading the e5 model...")
-        response = requests.get(url, stream=True)
-        with open(zip_path, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
-
-        print("Unzipping the model...")
-        with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            zip_ref.extractall("/app/e5_model")
-        os.remove(zip_path)
-        print("Model downloaded and extracted successfully.")
-    else:
-        print("e5 model already exists.")
 
 # e5 모델 경로 설정
-model_path = "/app/e5_model/e5/multilingual-e5-small"  # Dockerfile에서 해제한 경로
-download_and_unzip_e5_model()
+model_path = "/app/e5/multilingual-e5-small"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModel.from_pretrained(model_path)
 
