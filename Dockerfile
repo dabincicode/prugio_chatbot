@@ -13,8 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Ensure appropriate permissions
-RUN mkdir -p /app/.files && chmod -R 755 /app
+# Ensure appropriate permissions for .files and .chainlit directories
+RUN mkdir -p /app/.files /app/.chainlit && \
+    chmod -R 777 /app/.files /app/.chainlit
 
 # Set environment variable to change the .files directory location
 ENV FILES_DIRECTORY=/app/.files
